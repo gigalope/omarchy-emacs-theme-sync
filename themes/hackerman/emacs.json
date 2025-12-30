@@ -1,0 +1,5 @@
+{
+  "theme": "doom-one",
+  "package": "doom-themes",
+  "note": "Hackerman theme not available for Emacs. Using doom-one as alternative dark theme."
+}

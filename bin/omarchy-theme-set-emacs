@@ -1,0 +1,65 @@
+#!/bin/bash
+set -euo pipefail
+
+THEME_META="$HOME/.config/omarchy/current/theme/emacs.json"
+SKIP_FLAG="$HOME/.local/state/omarchy/toggles/skip-emacs-theme-changes"
+
+# Only act when emacsclient is available, the user hasn't opted out, and the
+# current theme ships Emacs metadata.
+if [[ ! -f "$THEME_META" ]] || [[ -f "$SKIP_FLAG" ]]; then
+  exit 0
+fi
+
+if ! omarchy-cmd-present jq >/dev/null; then
+  exit 0
+fi
+
+if ! omarchy-cmd-present emacsclient >/dev/null; then
+  exit 0
+fi
+
+theme=$(jq -r '.theme // empty' "$THEME_META")
+package=$(jq -r '.package // empty' "$THEME_META")
+variant=$(jq -r '.variant // empty' "$THEME_META")
+variant_var=$(jq -r '.variantVariable // empty' "$THEME_META")
+load_path=$(jq -r '.loadPath // empty' "$THEME_META")
+
+if [[ -z "$theme" ]]; then
+  exit 0
+fi
+
+escape_string() {
+  printf '%s' "$1" | sed 's/\\/\\\\/g; s/\"/\\\"/g'
+}
+
+load_path_escaped=""
+if [[ -n "$load_path" ]]; then
+  load_path_escaped=$(escape_string "$load_path")
+fi
+
+read -r -d '' ELISP <<EOF
+(let* ((theme '$theme)
+       (package ${package:+\'$package})
+       (variant ${variant:+\'$variant})
+       (variant-var ${variant_var:+\'$variant_var})
+       (load-path-entry ${load_path:+\"$load_path_escaped\"}))
+  (when load-path-entry
+    (add-to-list 'custom-theme-load-path (expand-file-name load-path-entry)))
+  (when package
+    (when (fboundp 'package-initialize)
+      (condition-case nil
+          (package-initialize)
+        (error nil)))
+    (require package nil 'noerror))
+  (when (and variant-var variant)
+    (set variant-var variant))
+  (mapc #'disable-theme custom-enabled-themes)
+  (if (ignore-errors (load-theme theme t))
+      t
+    (message "[omarchy] Emacs theme %s is not available" theme)
+    nil))
+EOF
+
+# Apply theme in a running Emacs session. Ignore failures to avoid breaking the
+# broader theme-set workflow if Emacs is not running.
+emacsclient --eval "$ELISP" >/dev/null 2>&1 || true

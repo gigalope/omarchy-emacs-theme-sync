@@ -1,0 +1,6 @@
+{
+  "theme": "catppuccin",
+  "package": "catppuccin-theme",
+  "variantVariable": "catppuccin-flavor",
+  "variant": "mocha"
+}
