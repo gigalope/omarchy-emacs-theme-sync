@@ -1,3 +1,6 @@
 *~
 *.elc
 .DS_Store
+
+# Personal org-mode tracking (use TODO.md for repo)
+TODO.org
