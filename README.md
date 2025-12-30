@@ -58,12 +58,13 @@ Now whenever you run `omarchy-theme-set <theme>`, Emacs will update automaticall
 (require 'omarchy-theme)
 (omarchy-theme-apply)  ; Apply current Omarchy theme on startup
 ```
+*For Doom Emacs users: Add to `~/.doom.d/config.el` instead of `init.el`*
 
 ### Option 2: File Watcher
 
 Have Emacs watch for theme changes and update automatically:
 
-Add to your `~/.emacs.d/init.el`:
+Add to your `~/.emacs.d/init.el` (or `~/.doom.d/config.el` for Doom Emacs):
 
 ```elisp
 (add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
