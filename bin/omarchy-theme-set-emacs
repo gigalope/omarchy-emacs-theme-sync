@@ -37,7 +37,7 @@ if [[ -n "$load_path" ]]; then
   load_path_escaped=$(escape_string "$load_path")
 fi
 
-read -r -d '' ELISP <<EOF
+read -r -d '' ELISP <<EOF || true
 (let* ((theme '$theme)
        (package ${package:+\'$package})
        (variant ${variant:+\'$variant})
