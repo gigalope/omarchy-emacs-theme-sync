@@ -23,8 +23,8 @@ When you switch themes in Omarchy, your Emacs session will automatically update 
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/omarchy-emacs-themes
-cd omarchy-emacs-themes
+git clone https://github.com/gigalope/omarchy-emacs-theme-sync
+cd omarchy-emacs-theme-sync
 ./install.sh
 ```
 

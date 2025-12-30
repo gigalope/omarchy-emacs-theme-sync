@@ -1,10 +1,10 @@
-# Agent Guide for omarchy-emacs-themes
+# Agent Guide for omarchy-emacs-theme-sync
 
 This document contains everything an AI agent needs to effectively work in this codebase.
 
 ## Project Overview
 
-**omarchy-emacs-themes** is an integration layer that synchronizes Emacs themes with [Omarchy](https://github.com/basecamp/omarchy), a Hyprland-based desktop environment. When users switch themes in Omarchy, their running Emacs sessions automatically update to match.
+**omarchy-emacs-theme-sync** is an integration layer that synchronizes Emacs themes with [Omarchy](https://github.com/basecamp/omarchy), a Hyprland-based desktop environment. When users switch themes in Omarchy, their running Emacs sessions automatically update to match.
 
 **Language**: Bash scripts + Emacs Lisp
 **License**: MIT
@@ -32,7 +32,7 @@ This document contains everything an AI agent needs to effectively work in this 
 ## Directory Structure
 
 ```
-omarchy-emacs-themes/
+omarchy-emacs-theme-sync/
 ├── bin/
 │   └── omarchy-theme-set-emacs      # Main shell script
 ├── config/

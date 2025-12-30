@@ -5,7 +5,7 @@ OMARCHY_BIN="$HOME/.local/share/omarchy/bin"
 OMARCHY_CONFIG="$HOME/.local/share/omarchy/config"
 OMARCHY_THEMES="$HOME/.local/share/omarchy/themes"
 
-echo "Installing omarchy-emacs-themes..."
+echo "Installing omarchy-emacs-theme-sync..."
 echo ""
 
 # Check if Omarchy is installed

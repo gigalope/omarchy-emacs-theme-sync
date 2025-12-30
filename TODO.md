@@ -1,6 +1,6 @@
 # TODO
 
-Development roadmap and future improvements for omarchy-emacs-themes.
+Development roadmap and future improvements for omarchy-emacs-theme-sync.
 
 ## Theme Package Development
 
