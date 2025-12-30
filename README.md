@@ -7,7 +7,7 @@ When you switch themes in Omarchy, your Emacs session will automatically update 
 ## Features
 
 - ✨ Automatic theme switching via hooks or file watching
-- 🎨 Support for all 15 Omarchy themes
+- 🎨 Support for all 14 Omarchy themes
 - 🔄 Live updates to running Emacs sessions (no restart needed)
 - 🎯 Theme variant support (e.g., Catppuccin flavors, Gruvbox variants)
 - 🚫 Easy opt-out via skip flag
@@ -53,24 +53,40 @@ chmod +x ~/.config/omarchy/hooks/theme-set
 Now whenever you run `omarchy-theme-set <theme>`, Emacs will update automatically.
 
 **Tip**: To make Emacs start with the current Omarchy theme (instead of your default theme), add this to your init file:
+
+*Vanilla Emacs (`~/.emacs.d/init.el`):*
 ```elisp
 (add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
 (require 'omarchy-theme)
 (omarchy-theme-apply)  ; Apply current Omarchy theme on startup
 ```
-*For Doom Emacs users: Add to `~/.doom.d/config.el` instead of `init.el`*
+
+*Doom Emacs (`~/.doom.d/config.el`):*
+```elisp
+(add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
+(require 'omarchy-theme)
+(add-hook 'emacs-startup-hook #'omarchy-theme-apply)
+```
 
 ### Option 2: File Watcher
 
 Have Emacs watch for theme changes and update automatically:
 
-Add to your `~/.emacs.d/init.el` (or `~/.doom.d/config.el` for Doom Emacs):
-
+**For vanilla Emacs** (`~/.emacs.d/init.el`):
 ```elisp
 (add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
 (require 'omarchy-theme)
 (omarchy-theme-apply)   ; Apply current theme on startup
 (omarchy-theme-follow)  ; Watch for theme changes
+```
+
+**For Doom Emacs** (`~/.doom.d/config.el`):
+```elisp
+(add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
+(require 'omarchy-theme)
+;; Defer until after Emacs is fully initialized
+(add-hook 'emacs-startup-hook #'omarchy-theme-apply)
+(add-hook 'emacs-startup-hook #'omarchy-theme-follow)
 ```
 
 **Note**: This method doesn't require the hook from Option 1.
