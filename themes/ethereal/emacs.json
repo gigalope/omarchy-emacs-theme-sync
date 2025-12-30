@@ -1,5 +1,4 @@
 {
-  "theme": "doom-dark+",
-  "package": "doom-themes",
-  "note": "Ethereal theme not available for Emacs. Using doom-dark+ as alternative dark theme."
+  "theme": "deeper-blue",
+  "note": "Ethereal theme not available for Emacs. Using deeper-blue (built-in) as alternative dark theme."
 }

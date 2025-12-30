@@ -75,45 +75,43 @@ omarchy-theme-set-emacs
 
 ## Theme Coverage
 
-All 15 Omarchy themes are supported:
+All 14 Omarchy themes are supported:
 
 | Omarchy Theme | Emacs Theme | Package |
 |---------------|-------------|---------|
-| catppuccin | catppuccin | catppuccin-theme |
-| catppuccin-latte | catppuccin (latte variant) | catppuccin-theme |
-| everforest | everforest-hard-dark | everforest-theme |
-| flexoki-light | flexoki-themes-light | flexoki-themes |
-| gruvbox | gruvbox-dark-medium | gruvbox-theme |
-| kanagawa | kanagawa | kanagawa-theme |
-| nord | nord | nord-theme |
-| rose-pine | rose-pine-dawn | rose-pine-theme |
-| tokyo-night | tokyonight | tokyonight-theme |
-| ethereal | doom-dark+ | doom-themes |
+| catppuccin | catppuccin (mocha) | catppuccin-theme |
+| catppuccin-latte | catppuccin (latte) | catppuccin-theme |
+| everforest | doom-nova | doom-themes |
+| flexoki-light | doom-solarized-light | doom-themes |
+| gruvbox | doom-gruvbox | doom-themes |
+| kanagawa | doom-henna | doom-themes |
+| nord | doom-nord | doom-themes |
+| rose-pine | doom-earl-grey | doom-themes |
+| tokyo-night | doom-tokyo-night | doom-themes |
+| ethereal | deeper-blue | (built-in) |
 | hackerman | doom-one | doom-themes |
-| matte-black | doom-Iosvkem | doom-themes |
-| osaka-jade | doom-vibrant | doom-themes |
-| ristretto | monokai | monokai-theme |
+| matte-black | doom-ir-black | doom-themes |
+| osaka-jade | doom-pine | doom-themes |
+| ristretto | doom-monokai-ristretto | doom-themes |
 
-**Note**: Some themes use Doom Emacs themes as alternatives since exact equivalents aren't available on MELPA.
+**Note**: Most themes use [doom-themes](https://github.com/doomemacs/themes) which provides 50+ well-crafted themes. Only catppuccin variants require a separate package.
 
 ### Installing Theme Packages
+
+**Simple setup** - Only 2 packages needed:
 
 Using `use-package`:
 
 ```elisp
 (use-package catppuccin-theme :ensure t)
-(use-package everforest-theme :ensure t)
-(use-package gruvbox-theme :ensure t)
-(use-package kanagawa-theme :ensure t)
-(use-package nord-theme :ensure t)
-(use-package rose-pine-theme :ensure t)
-(use-package tokyonight-theme :ensure t)
-(use-package flexoki-themes :ensure t)
 (use-package doom-themes :ensure t)
-(use-package monokai-theme :ensure t)
 ```
 
-Or install manually via `M-x package-install`.
+Or install manually:
+```elisp
+M-x package-install RET catppuccin-theme RET
+M-x package-install RET doom-themes RET
+```
 
 ## How It Works
 

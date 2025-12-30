@@ -1,5 +1,4 @@
 {
-  "theme": "monokai",
-  "package": "monokai-theme",
-  "note": "Monokai Pro Ristretto variant not available. Using standard monokai theme."
+  "theme": "doom-monokai-ristretto",
+  "package": "doom-themes"
 }

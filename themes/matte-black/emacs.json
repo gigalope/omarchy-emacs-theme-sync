@@ -1,5 +1,5 @@
 {
-  "theme": "doom-Iosvkem",
+  "theme": "doom-ir-black",
   "package": "doom-themes",
-  "note": "Matte Black theme not available for Emacs. Using doom-Iosvkem as alternative minimal dark theme."
+  "note": "Matte Black theme not available for Emacs. Using doom-ir-black as alternative minimal dark theme."
 }
