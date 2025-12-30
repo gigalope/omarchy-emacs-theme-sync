@@ -1,10 +1,14 @@
 ;;; omarchy-theme.el --- Sync Emacs with Omarchy themes -*- lexical-binding: t; -*-
 
+;;; Commentary:
+
 ;; Drop this file somewhere on your `load-path` (it lives at
 ;; ~/.config/emacs/omarchy-theme.el after a normal Omarchy install) and add:
 ;;   (require 'omarchy-theme)
 ;;   (omarchy-theme-follow)  ; optional watcher
 ;;   (omarchy-theme-apply)   ; apply current theme on startup
+
+;;; Code:
 
 (require 'json)
 
@@ -53,7 +57,7 @@ and loadPath. Missing keys are ignored gracefully."
          (variant-var (omarchy-theme--normalize-symbol (alist-get 'variantVariable data)))
          (load-path-entry (alist-get 'loadPath data)))
     (if (null data)
-        (message "[omarchy] No Emacs theme metadata found at %s" omarchy-theme-metadata-file)
+        (message "[Omarchy] No Emacs theme metadata found at %s" omarchy-theme-metadata-file)
       (when load-path-entry
         (add-to-list 'custom-theme-load-path (expand-file-name load-path-entry)))
       (when package
@@ -68,24 +72,24 @@ and loadPath. Missing keys are ignored gracefully."
       (condition-case err
           (progn
             (load-theme theme t)
-            (message "[omarchy] Applied Emacs theme %s" theme)
+            (message "[Omarchy] Applied Emacs theme %s" theme)
             t)
         (error
-         (message "[omarchy] Failed to load theme %s (%s)" theme err)
+         (message "[Omarchy] Failed to load theme %s (%s)" theme err)
          nil)))))
 
 (defun omarchy-theme--schedule-apply (_event)
-  "Debounce theme updates triggered by file-notify EVENT."
+  "Debounce theme update triggered by file-notify EVENT."
   (when omarchy-theme--watch-timer
     (cancel-timer omarchy-theme--watch-timer))
   (setq omarchy-theme--watch-timer
         (run-with-timer omarchy-theme-watch-delay nil #'omarchy-theme-apply)))
 
 (defun omarchy-theme-follow ()
-  "Start watching the Omarchy theme metadata and re-apply on changes."
+  "Start watching the Omarchy theme metadata and re-apply on change."
   (interactive)
-  (unless (featurep 'file-notify)
-    (user-error "file-notify is not available in this Emacs build"))
+  (unless (featurep 'filenotify)
+    (user-error "File notification is not available in this Emacs build"))
   (unless (file-exists-p (file-name-directory omarchy-theme-metadata-file))
     (make-directory (file-name-directory omarchy-theme-metadata-file) t))
   (unless omarchy-theme--watch-handle
@@ -94,7 +98,7 @@ and loadPath. Missing keys are ignored gracefully."
            (file-name-directory omarchy-theme-metadata-file)
            '(change attribute-change)
            #'omarchy-theme--schedule-apply)))
-  (message "[omarchy] Watching %s for theme changes" omarchy-theme-metadata-file))
+  (message "[Omarchy] Watching %s for theme changes" omarchy-theme-metadata-file))
 
 (provide 'omarchy-theme)
 
