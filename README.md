@@ -166,17 +166,30 @@ To re-enable:
 rm ~/.local/state/omarchy/toggles/skip-emacs-theme-changes
 ```
 
-### Custom Theme Packages
+### Custom Omarchy Themes
 
-If you use custom theme packages or load paths, you can create your own `emacs.json`:
+If you've installed custom Omarchy themes (via `omarchy-theme-install`), you can add Emacs support by creating an `emacs.json` file:
 
-```json
+```bash
+# Example: Adding Emacs support for synthwave84
+cat > ~/.config/omarchy/themes/synthwave84/emacs.json << 'EOF'
 {
-  "theme": "my-custom-theme",
-  "package": "my-theme-package",
-  "loadPath": "~/.emacs.d/themes"
+  "theme": "doom-outrun-electric",
+  "package": "doom-themes",
+  "note": "Synthwave84 theme not available for Emacs. Using doom-outrun-electric as alternative."
 }
+EOF
 ```
+
+**JSON fields:**
+- `theme` (required): Emacs theme name (e.g., `doom-tokyo-night`)
+- `package` (optional): Package to load (e.g., `doom-themes`)
+- `variant` (optional): Theme variant value (e.g., `mocha`)
+- `variantVariable` (optional): Variable to set variant (e.g., `catppuccin-flavor`)
+- `loadPath` (optional): Custom theme directory (e.g., `~/.emacs.d/themes`)
+- `note` (optional): Description for documentation
+
+After creating the file, run `omarchy-theme-set <your-theme>` and Emacs will pick it up automatically!
 
 ## Troubleshooting
 
