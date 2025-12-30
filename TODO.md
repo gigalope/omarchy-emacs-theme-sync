@@ -21,15 +21,29 @@ Development roadmap and future improvements for omarchy-emacs-themes.
 
 ### User Experience
 - [ ] Helper script: `omarchy-theme-add-emacs` for custom themes
-- [ ] Auto-detect if theme package is installed before requiring
+- [ ] Auto-detect if theme package is installed before requiring (partially implemented - graceful error handling exists)
 - [ ] Better error messages when theme packages are missing
 - [ ] Check for `emacsclient` availability during install
 
 ### Advanced Features
 - [ ] Support for `light.mode` awareness (auto-switch light/dark variants)
 - [ ] Support for multiple Emacs instances/daemons
-- [ ] Integration test suite
 - [ ] Uninstall script
+
+## Testing & Quality
+
+### Test Suite (See test suite design plan for details)
+- [ ] Shell script tests (bats-core) - JSON parsing, Elisp escaping, preconditions
+- [ ] Elisp library tests (ERT) - Theme application, file watching, metadata parsing
+- [ ] Theme metadata validation - JSON schema validation for all 14 themes
+- [ ] Static analysis - shellcheck for shell scripts, elisp-lint for Elisp
+- [ ] CI/CD pipeline - GitHub Actions for automated testing
+- [ ] Integration tests - Full round-trip theme switching tests
+
+### Priority
+- [ ] **Phase 1 (Critical)**: Elisp escaping tests, theme application tests, metadata validation
+- [ ] **Phase 2 (Coverage)**: Precondition tests, file watcher tests, integration tests
+- [ ] **Phase 3 (Quality)**: Static analysis, CI/CD, documentation tests
 
 ## Documentation
 
@@ -59,3 +73,7 @@ Development roadmap and future improvements for omarchy-emacs-themes.
 - [x] Custom theme documentation
 - [x] Doom Emacs support notes
 - [x] flexoki-themes native package support
+- [x] Test suite design and planning
+- [x] File watcher symlink detection fix (watch parent directory)
+- [x] Doom Emacs startup integration (emacs-startup-hook)
+- [x] README Doom-specific setup instructions
