@@ -93,7 +93,7 @@ All 14 Omarchy themes are supported:
 | catppuccin | catppuccin (mocha) | catppuccin-theme |
 | catppuccin-latte | catppuccin (latte) | catppuccin-theme |
 | everforest | doom-nova | doom-themes |
-| flexoki-light | doom-solarized-light | doom-themes |
+| flexoki-light | flexoki-themes-light | flexoki-themes |
 | gruvbox | doom-gruvbox | doom-themes |
 | kanagawa | doom-henna | doom-themes |
 | nord | doom-nord | doom-themes |
@@ -105,22 +105,24 @@ All 14 Omarchy themes are supported:
 | osaka-jade | doom-pine | doom-themes |
 | ristretto | doom-monokai-ristretto | doom-themes |
 
-**Note**: Most themes use [doom-themes](https://github.com/doomemacs/themes) which provides 50+ well-crafted themes. Only catppuccin variants require a separate package.
+**Note**: Most themes use [doom-themes](https://github.com/doomemacs/themes) which provides 50+ well-crafted themes.
 
 ### Installing Theme Packages
 
-**Simple setup** - Only 2 packages needed:
+**Simple setup** - Only 3 packages needed:
 
 Using `use-package`:
 
 ```elisp
 (use-package catppuccin-theme :ensure t)
+(use-package flexoki-themes :ensure t)
 (use-package doom-themes :ensure t)
 ```
 
 Or install manually:
 ```elisp
 M-x package-install RET catppuccin-theme RET
+M-x package-install RET flexoki-themes RET
 M-x package-install RET doom-themes RET
 ```
 
