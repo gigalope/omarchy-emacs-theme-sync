@@ -90,15 +90,19 @@ and loadPath. Missing keys are ignored gracefully."
   (interactive)
   (unless (featurep 'filenotify)
     (user-error "File notification is not available in this Emacs build"))
-  (unless (file-exists-p (file-name-directory omarchy-theme-metadata-file))
-    (make-directory (file-name-directory omarchy-theme-metadata-file) t))
-  (unless omarchy-theme--watch-handle
-    (setq omarchy-theme--watch-handle
-          (file-notify-add-watch
-           (file-name-directory omarchy-theme-metadata-file)
-           '(change attribute-change)
-           #'omarchy-theme--schedule-apply)))
-  (message "[Omarchy] Watching %s for theme changes" omarchy-theme-metadata-file))
+  (let* ((theme-dir (file-name-directory omarchy-theme-metadata-file))
+         (watch-dir (file-name-directory (directory-file-name theme-dir))))
+    (unless (file-exists-p theme-dir)
+      (make-directory theme-dir t))
+    ;; Watch the parent directory (current/) to catch symlink changes
+    ;; when Omarchy switches themes by atomically replacing the theme/ symlink
+    (unless omarchy-theme--watch-handle
+      (setq omarchy-theme--watch-handle
+            (file-notify-add-watch
+             watch-dir
+             '(change attribute-change)
+             #'omarchy-theme--schedule-apply)))
+    (message "[Omarchy] Watching %s for theme changes" watch-dir)))
 
 (provide 'omarchy-theme)
 
