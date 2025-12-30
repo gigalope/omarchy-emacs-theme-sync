@@ -52,6 +52,13 @@ chmod +x ~/.config/omarchy/hooks/theme-set
 
 Now whenever you run `omarchy-theme-set <theme>`, Emacs will update automatically.
 
+**Tip**: To make Emacs start with the current Omarchy theme (instead of your default theme), add this to your init file:
+```elisp
+(add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
+(require 'omarchy-theme)
+(omarchy-theme-apply)  ; Apply current Omarchy theme on startup
+```
+
 ### Option 2: File Watcher
 
 Have Emacs watch for theme changes and update automatically:
@@ -61,8 +68,11 @@ Add to your `~/.emacs.d/init.el`:
 ```elisp
 (add-to-list 'load-path "~/.local/share/omarchy/config/emacs")
 (require 'omarchy-theme)
-(omarchy-theme-follow)
+(omarchy-theme-apply)   ; Apply current theme on startup
+(omarchy-theme-follow)  ; Watch for theme changes
 ```
+
+**Note**: This method doesn't require the hook from Option 1.
 
 ### Option 3: Manual
 
