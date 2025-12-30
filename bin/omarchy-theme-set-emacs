@@ -37,12 +37,25 @@ if [[ -n "$load_path" ]]; then
   load_path_escaped=$(escape_string "$load_path")
 fi
 
+# Prepare elisp values
+package_elisp="nil"
+[[ -n "$package" ]] && package_elisp="'$package"
+
+variant_elisp="nil"
+[[ -n "$variant" ]] && variant_elisp="'$variant"
+
+variant_var_elisp="nil"
+[[ -n "$variant_var" ]] && variant_var_elisp="'$variant_var"
+
+load_path_elisp="nil"
+[[ -n "$load_path" ]] && load_path_elisp="\"$load_path_escaped\""
+
 read -r -d '' ELISP <<EOF || true
 (let* ((theme '$theme)
-       (package ${package:+\'$package})
-       (variant ${variant:+\'$variant})
-       (variant-var ${variant_var:+\'$variant_var})
-       (load-path-entry ${load_path:+\"$load_path_escaped\"}))
+       (package $package_elisp)
+       (variant $variant_elisp)
+       (variant-var $variant_var_elisp)
+       (load-path-entry $load_path_elisp))
   (when load-path-entry
     (add-to-list 'custom-theme-load-path (expand-file-name load-path-entry)))
   (when package
