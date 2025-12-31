@@ -1,0 +1,147 @@
+#!/bin/bash
+set -euo pipefail
+
+# Theme Demo Script for Omarchy
+# Cycles through a curated set of themes with pauses for video recording
+
+readonly THEMES=(ristretto rose-pine nord catppuccin-latte catppuccin)
+readonly PAUSE_SECONDS=3
+readonly STATE_DIR="$HOME/.local/state/omarchy"
+readonly SAVED_THEME_FILE="$STATE_DIR/demo-saved-theme"
+readonly CURRENT_THEME_LINK="$HOME/.config/omarchy/current/theme"
+
+# Global state for cleanup
+ORIGINAL_THEME=""
+CLEANUP_DONE=false
+
+# Save the current theme to state file
+save_current_theme() {
+  if [[ ! -L "$CURRENT_THEME_LINK" ]]; then
+    echo "Error: Current theme symlink not found at $CURRENT_THEME_LINK" >&2
+    echo "Is Omarchy properly initialized?" >&2
+    exit 1
+  fi
+
+  # Extract theme name from symlink target
+  local theme_path
+  theme_path=$(readlink "$CURRENT_THEME_LINK")
+  ORIGINAL_THEME=$(basename "$theme_path")
+
+  # Persist to file for trap handler
+  mkdir -p "$STATE_DIR"
+  echo "$ORIGINAL_THEME" > "$SAVED_THEME_FILE"
+
+  echo "Saved current theme: $ORIGINAL_THEME"
+}
+
+# Restore the original theme
+restore_theme() {
+  # Prevent double-restoration
+  if [[ "$CLEANUP_DONE" == "true" ]]; then
+    return 0
+  fi
+  CLEANUP_DONE=true
+
+  if [[ -f "$SAVED_THEME_FILE" ]]; then
+    local saved_theme
+    saved_theme=$(cat "$SAVED_THEME_FILE")
+    echo "Restoring original theme: $saved_theme"
+    omarchy-theme-set "$saved_theme"
+    rm -f "$SAVED_THEME_FILE"
+  elif [[ -n "$ORIGINAL_THEME" ]]; then
+    echo "Restoring original theme: $ORIGINAL_THEME"
+    omarchy-theme-set "$ORIGINAL_THEME"
+  fi
+}
+
+# Cleanup handler for trap
+cleanup() {
+  local exit_code=$?
+
+  # Detect if interrupted vs normal exit
+  if [[ $exit_code -ne 0 ]]; then
+    echo ""  # Newline after ^C
+    echo "Demo interrupted. Restoring original theme..."
+  fi
+
+
+  # Remove trap to avoid recursion, then exit
+  trap - EXIT
+  exit $exit_code
+}
+
+# Validate prerequisites before starting
+validate_prerequisites() {
+  # Check if omarchy-theme-set is available
+  if ! command -v omarchy-theme-set &>/dev/null; then
+    echo "Error: omarchy-theme-set command not found" >&2
+    echo "Is Omarchy installed and in your PATH?" >&2
+    exit 1
+  fi
+
+  # Verify all demo themes exist
+  local themes_dir="$HOME/.config/omarchy/themes"
+  for theme in "${THEMES[@]}"; do
+    if [[ ! -d "$themes_dir/$theme" ]]; then
+      echo "Error: Theme '$theme' not found in $themes_dir" >&2
+      exit 1
+    fi
+  done
+
+  # Optional: Warn if Emacs isn't running (don't fail)
+  if ! pgrep -x emacs &>/dev/null; then
+    echo "Note: Emacs doesn't appear to be running"
+    echo "The demo will still work for other components"
+    echo ""
+  fi
+}
+
+# Apply a theme with user-friendly output
+apply_theme() {
+  local theme=$1
+  local theme_display
+
+  # Create display name (capitalize, handle dashes)
+  theme_display=$(echo "$theme" | sed 's/-/ /g; s/\b\(.\)/\u\1/g')
+
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "Applying theme: $theme_display"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  omarchy-theme-set "$theme"
+}
+
+# Main execution
+main() {
+  echo "Omarchy Theme Demo"
+  echo "=================="
+  echo "Cycling through ${#THEMES[@]} themes with ${PAUSE_SECONDS}-second pauses"
+  echo "Press Ctrl+C to stop and restore original theme"
+  echo ""
+
+  validate_prerequisites
+  save_current_theme
+
+  # Set up signal traps
+  trap cleanup SIGINT SIGTERM EXIT
+
+  # Cycle through themes
+  local i=1
+  for theme in "${THEMES[@]}"; do
+    echo ""
+    echo "[$i/${#THEMES[@]}]"
+    apply_theme "$theme"
+
+    # Don't sleep after the last theme
+    if [[ $i -lt ${#THEMES[@]} ]]; then
+      sleep "$PAUSE_SECONDS"
+    fi
+
+    ((i++))
+  done
+
+  echo ""
+  echo "Demo complete! Restoring original theme..."
+}
+
+main "$@"

@@ -4,6 +4,8 @@ Automatic theme synchronization for Emacs when using [Omarchy](https://github.co
 
 When you switch themes in Omarchy, your Emacs session will automatically update to match.
 
+[Demo Video](omarchy-emacs-theme-sync-demo-1080p.mp4)
+
 ## Features
 
 - ✨ Automatic theme switching via hooks or file watching
