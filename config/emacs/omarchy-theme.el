@@ -29,6 +29,8 @@
 
 (defvar omarchy-theme--watch-handle nil)
 (defvar omarchy-theme--watch-timer nil)
+(defvar omarchy-theme--last-applied nil
+  "Metadata of the last applied theme, used to prevent redundant reloads.")
 
 (defun omarchy-theme--read-metadata ()
   "Return the current theme metadata alist, or nil if missing."
@@ -75,11 +77,16 @@ and loadPath. Missing keys are ignored gracefully."
          nil)))))
 
 (defun omarchy-theme--schedule-apply (_event)
-  "Debounce theme update triggered by file-notify EVENT."
+  "Apply theme only if metadata changed, triggered by file-notify EVENT."
   (when omarchy-theme--watch-timer
     (cancel-timer omarchy-theme--watch-timer))
   (setq omarchy-theme--watch-timer
-        (run-with-timer omarchy-theme-watch-delay nil #'omarchy-theme-apply)))
+        (run-with-timer omarchy-theme-watch-delay nil
+                        (lambda ()
+                          (let ((new-metadata (omarchy-theme--read-metadata)))
+                            (unless (equal new-metadata omarchy-theme--last-applied)
+                              (setq omarchy-theme--last-applied new-metadata)
+                              (omarchy-theme-apply new-metadata)))))))
 
 (defun omarchy-theme-follow ()
   "Start watching the Omarchy theme metadata and re-apply on change."
