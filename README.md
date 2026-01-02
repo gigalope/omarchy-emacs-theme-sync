@@ -104,44 +104,71 @@ omarchy-theme-set-emacs
 
 ## Theme Coverage
 
-All 14 Omarchy themes are supported:
+All 14 Omarchy themes are supported. 8 have direct theme matches, while 6 use thematically similar approximations.
+
+### Direct Matches (8/14)
+
+These Omarchy themes map to their exact Emacs counterparts:
 
 | Omarchy Theme | Emacs Theme | Package |
 |---------------|-------------|---------|
 | catppuccin | catppuccin (mocha) | catppuccin-theme |
 | catppuccin-latte | catppuccin (latte) | catppuccin-theme |
-| everforest | doom-nova | doom-themes |
 | flexoki-light | flexoki-themes-light | flexoki-themes |
 | gruvbox | doom-gruvbox | doom-themes |
-| kanagawa | doom-henna | doom-themes |
 | nord | doom-nord | doom-themes |
-| rose-pine | doom-earl-grey | doom-themes |
+| rose-pine | rose-pine | rose-pine-emacs |
 | tokyo-night | doom-tokyo-night | doom-themes |
-| ethereal | deeper-blue | (built-in) |
-| hackerman | doom-one | doom-themes |
-| matte-black | doom-ir-black | doom-themes |
-| osaka-jade | doom-pine | doom-themes |
 | ristretto | doom-monokai-ristretto | doom-themes |
 
-**Note**: Most themes use [doom-themes](https://github.com/doomemacs/themes) which provides 50+ well-crafted themes.
+### Approximate Matches (6/14)
+
+These themes don't have exact Emacs equivalents, so we map to visually similar alternatives:
+
+| Omarchy Theme | Emacs Theme | Package | Notes |
+|---------------|-------------|---------|-------|
+| everforest | doom-nova | doom-themes | Similar green forest aesthetic |
+| kanagawa | doom-henna | doom-themes | Similar warm earth tones |
+| ethereal | deeper-blue | (built-in) | Similar blue minimalist style |
+| hackerman | doom-one | doom-themes | Similar dark hacker aesthetic |
+| matte-black | doom-ir-black | doom-themes | Similar minimal dark theme |
+| osaka-jade | doom-pine | doom-themes | Similar jade/pine color palette |
+
+**Want better matches?** If you know of more accurate Emacs themes for the approximate matches, please [open an issue](https://github.com/gigalope/omarchy-emacs-theme-sync/issues) or submit a PR!
 
 ### Installing Theme Packages
 
-**Simple setup** - Only 3 packages needed:
+**Simple setup** - Only 4 packages needed:
 
-Using `use-package`:
+**For Doom Emacs** (`~/.doom.d/packages.el`):
+
+```elisp
+(package! doom-themes)
+(package! catppuccin-theme)
+(package! flexoki-themes)
+(package! rose-pine-emacs
+  :recipe (:host github :repo "thongpv87/rose-pine-emacs"))
+```
+
+**For vanilla Emacs with use-package**:
 
 ```elisp
 (use-package catppuccin-theme :ensure t)
 (use-package flexoki-themes :ensure t)
 (use-package doom-themes :ensure t)
+
+;; rose-pine-emacs is not on MELPA, install from GitHub
+(unless (package-installed-p 'rose-pine-emacs)
+  (package-vc-install "https://github.com/thongpv87/rose-pine-emacs"))
 ```
 
-Or install manually:
+**For vanilla Emacs (manual)**:
+
 ```elisp
 M-x package-install RET catppuccin-theme RET
 M-x package-install RET flexoki-themes RET
 M-x package-install RET doom-themes RET
+M-x package-vc-install RET https://github.com/thongpv87/rose-pine-emacs RET
 ```
 
 ## How It Works
