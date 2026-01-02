@@ -61,10 +61,6 @@ and loadPath. Missing keys are ignored gracefully."
       (when load-path-entry
         (add-to-list 'custom-theme-load-path (expand-file-name load-path-entry)))
       (when package
-        (when (fboundp 'package-initialize)
-          (condition-case nil
-              (package-initialize)
-            (error nil)))
         (require package nil 'noerror))
       (when (and variant-var variant)
         (set variant-var variant))
