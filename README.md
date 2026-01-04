@@ -104,9 +104,9 @@ omarchy-theme-set-emacs
 
 ## Theme Coverage
 
-All 14 Omarchy themes are supported. 8 have direct theme matches, while 6 use thematically similar approximations.
+All 14 Omarchy themes are supported. 9 have direct theme matches, while 5 use thematically similar approximations.
 
-### Direct Matches (8/14)
+### Direct Matches (9/14)
 
 These Omarchy themes map to their exact Emacs counterparts:
 
@@ -117,11 +117,12 @@ These Omarchy themes map to their exact Emacs counterparts:
 | flexoki-light | flexoki-themes-light | flexoki-themes |
 | gruvbox | doom-gruvbox | doom-themes |
 | nord | doom-nord | doom-themes |
+| osaka-jade | osaka-jade | omarchy-emacs-themes |
 | rose-pine | rose-pine | rose-pine-emacs |
 | tokyo-night | doom-tokyo-night | doom-themes |
 | ristretto | doom-monokai-ristretto | doom-themes |
 
-### Approximate Matches (6/14)
+### Approximate Matches (5/14)
 
 These themes don't have exact Emacs equivalents, so we map to visually similar alternatives:
 
@@ -132,13 +133,12 @@ These themes don't have exact Emacs equivalents, so we map to visually similar a
 | ethereal | deeper-blue | (built-in) | Similar blue minimalist style |
 | hackerman | doom-one | doom-themes | Similar dark hacker aesthetic |
 | matte-black | doom-ir-black | doom-themes | Similar minimal dark theme |
-| osaka-jade | doom-pine | doom-themes | Similar jade/pine color palette |
 
 **Want better matches?** If you know of more accurate Emacs themes for the approximate matches, please [open an issue](https://github.com/gigalope/omarchy-emacs-theme-sync/issues) or submit a PR!
 
 ### Installing Theme Packages
 
-**Simple setup** - Only 4 packages needed:
+**Recommended setup** - Install these packages for full theme support:
 
 **For Doom Emacs** (`~/.doom.d/packages.el`):
 
@@ -148,6 +148,8 @@ These themes don't have exact Emacs equivalents, so we map to visually similar a
 (package! flexoki-themes)
 (package! rose-pine-emacs
   :recipe (:host github :repo "thongpv87/rose-pine-emacs"))
+(package! omarchy-emacs-themes
+  :recipe (:host github :repo "gigalope/omarchy-emacs-themes"))
 ```
 
 **For vanilla Emacs with use-package**:
@@ -157,9 +159,11 @@ These themes don't have exact Emacs equivalents, so we map to visually similar a
 (use-package flexoki-themes :ensure t)
 (use-package doom-themes :ensure t)
 
-;; rose-pine-emacs is not on MELPA, install from GitHub
+;; These packages are not on MELPA, install from GitHub
 (unless (package-installed-p 'rose-pine-emacs)
   (package-vc-install "https://github.com/thongpv87/rose-pine-emacs"))
+(unless (package-installed-p 'omarchy-emacs-themes)
+  (package-vc-install "https://github.com/gigalope/omarchy-emacs-themes"))
 ```
 
 **For vanilla Emacs (manual)**:
@@ -169,6 +173,7 @@ M-x package-install RET catppuccin-theme RET
 M-x package-install RET flexoki-themes RET
 M-x package-install RET doom-themes RET
 M-x package-vc-install RET https://github.com/thongpv87/rose-pine-emacs RET
+M-x package-vc-install RET https://github.com/gigalope/omarchy-emacs-themes RET
 ```
 
 ## How It Works
