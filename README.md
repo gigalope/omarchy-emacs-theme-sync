@@ -104,9 +104,9 @@ omarchy-theme-set-emacs
 
 ## Theme Coverage
 
-All 14 Omarchy themes are supported. 9 have direct theme matches, while 5 use thematically similar approximations.
+All 14 Omarchy themes are supported. 10 have direct theme matches, while 4 use thematically similar approximations.
 
-### Direct Matches (9/14)
+### Direct Matches (10/14)
 
 These Omarchy themes map to their exact Emacs counterparts:
 
@@ -114,6 +114,7 @@ These Omarchy themes map to their exact Emacs counterparts:
 |---------------|-------------|---------|
 | catppuccin | catppuccin (mocha) | catppuccin-theme |
 | catppuccin-latte | catppuccin (latte) | catppuccin-theme |
+| ethereal | ethereal | omarchy-emacs-themes |
 | flexoki-light | flexoki-themes-light | flexoki-themes |
 | gruvbox | doom-gruvbox | doom-themes |
 | nord | doom-nord | doom-themes |
@@ -122,7 +123,7 @@ These Omarchy themes map to their exact Emacs counterparts:
 | tokyo-night | doom-tokyo-night | doom-themes |
 | ristretto | doom-monokai-ristretto | doom-themes |
 
-### Approximate Matches (5/14)
+### Approximate Matches (4/14)
 
 These themes don't have exact Emacs equivalents, so we map to visually similar alternatives:
 
@@ -130,7 +131,6 @@ These themes don't have exact Emacs equivalents, so we map to visually similar a
 |---------------|-------------|---------|-------|
 | everforest | doom-nova | doom-themes | Similar green forest aesthetic |
 | kanagawa | doom-henna | doom-themes | Similar warm earth tones |
-| ethereal | deeper-blue | (built-in) | Similar blue minimalist style |
 | hackerman | doom-one | doom-themes | Similar dark hacker aesthetic |
 | matte-black | doom-ir-black | doom-themes | Similar minimal dark theme |
 

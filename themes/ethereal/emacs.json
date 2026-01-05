@@ -1,4 +1,5 @@
 {
-  "theme": "deeper-blue",
-  "note": "Ethereal theme not available for Emacs. Using deeper-blue (built-in) as alternative dark theme."
+  "theme": "ethereal",
+  "package": "omarchy-emacs-themes",
+  "note": "Native Ethereal theme from omarchy-emacs-themes package."
 }
